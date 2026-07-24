@@ -13,10 +13,7 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = {
     hasError: false,
     error: null,
@@ -30,11 +27,7 @@ export class ErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error(
-      "[SYJ-CanvasForge] Unhandled UI error:",
-      error,
-      info.componentStack,
-    );
+    console.error("[SYJ-CanvasForge] Unhandled UI error:", error, info.componentStack);
   }
 
   private handleReset = (): void => {
@@ -61,8 +54,8 @@ export class ErrorBoundary extends Component<
           </h2>
 
           <p className="mt-1 max-w-md text-sm text-[var(--text-secondary)]">
-            This part of the editor hit an unexpected error. Your other open
-            files are unaffected. You can try again, or reload the file.
+            This part of the editor hit an unexpected error. Your other open files are
+            unaffected. You can try again, or reload the file.
           </p>
 
           {this.state.error && (
@@ -73,9 +66,7 @@ export class ErrorBoundary extends Component<
                 wordBreak: "break-word",
               }}
             >
-              {this.state.error.stack ??
-                this.state.error.message ??
-                "Unknown error"}
+              {this.state.error.stack ?? this.state.error.message ?? "Unknown error"}
             </pre>
           )}
         </div>
@@ -85,10 +76,7 @@ export class ErrorBoundary extends Component<
             Try again
           </Button>
 
-          <Button
-            variant="outline"
-            onClick={() => window.location.assign("./")}
-          >
+          <Button variant="outline" onClick={() => window.location.assign("./")}>
             Back to home
           </Button>
         </div>

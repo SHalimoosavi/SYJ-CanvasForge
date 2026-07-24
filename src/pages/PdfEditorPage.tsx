@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import { useUploadStore } from "@/store/uploadStore";
 import { usePdfStore } from "@/store/pdfStore";
@@ -17,7 +17,8 @@ import { downloadBytes, withoutExtension } from "@/lib/download";
 import { toast } from "@/store/toastStore";
 
 export function PdfEditorPage() {
-  const files = useUploadStore((s) => s.files.filter((f) => f.extension === "pdf"));
+  const allFiles = useUploadStore((s) => s.files);
+  const files = useMemo(() => allFiles.filter((f) => f.extension === "pdf"), [allFiles]);
   const activeFileId = useUploadStore((s) => s.activeFileId);
   const setActiveFile = useUploadStore((s) => s.setActiveFile);
 

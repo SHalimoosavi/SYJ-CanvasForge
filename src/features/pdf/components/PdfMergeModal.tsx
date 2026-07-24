@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FileText, GripVertical } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
@@ -8,7 +8,8 @@ import { downloadBytes } from "@/lib/download";
 import { toast } from "@/store/toastStore";
 
 export function PdfMergeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const files = useUploadStore((s) => s.files.filter((f) => f.extension === "pdf"));
+  const allFiles = useUploadStore((s) => s.files);
+  const files = useMemo(() => allFiles.filter((f) => f.extension === "pdf"), [allFiles]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isMerging, setIsMerging] = useState(false);
 

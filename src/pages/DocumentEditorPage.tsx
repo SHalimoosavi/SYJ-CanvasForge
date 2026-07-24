@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, Download, Eye, Pencil } from "lucide-react";
 import { useUploadStore } from "@/store/uploadStore";
 import { useDocumentText } from "@/features/document/hooks/useDocumentText";
@@ -9,7 +9,8 @@ import { downloadBytes, withoutExtension } from "@/lib/download";
 import { toast } from "@/store/toastStore";
 
 export function DocumentEditorPage() {
-  const files = useUploadStore((s) => s.files.filter((f) => f.kind === "document"));
+  const allFiles = useUploadStore((s) => s.files);
+  const files = useMemo(() => allFiles.filter((f) => f.kind === "document"), [allFiles]);
   const activeFileId = useUploadStore((s) => s.activeFileId);
   const setActiveFile = useUploadStore((s) => s.setActiveFile);
 

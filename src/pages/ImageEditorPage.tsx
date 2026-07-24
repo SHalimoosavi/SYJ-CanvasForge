@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Canvas, FabricImage } from "fabric";
 import { useUploadStore } from "@/store/uploadStore";
 import { useCanvasHistory } from "@/features/image/hooks/useImageHistory";
@@ -11,7 +11,8 @@ import { WorkspaceFileSwitcher } from "@/components/common/WorkspaceFileSwitcher
 import type { ImageEditorTool } from "@/features/image/types";
 
 export function ImageEditorPage() {
-  const files = useUploadStore((s) => s.files.filter((f) => f.kind === "image"));
+  const allFiles = useUploadStore((s) => s.files);
+  const files = useMemo(() => allFiles.filter((f) => f.kind === "image"), [allFiles]);
   const activeFileId = useUploadStore((s) => s.activeFileId);
   const setActiveFile = useUploadStore((s) => s.setActiveFile);
 
